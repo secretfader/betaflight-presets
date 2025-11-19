@@ -624,6 +624,25 @@
   },
   "presets": [
     {
+      "fullPath": "presets/2025.12/osd/FaderFPV_DJI.txt",
+      "hash": "5994991c2720eb40995db01f3366c881a850bd7abb6dfd360bbe9852573e3e12",
+      "title": "Fader FPV DJI O4",
+      "firmware_version": [
+        "4.5",
+        "2025.12"
+      ],
+      "category": "OSD",
+      "status": "COMMUNITY",
+      "keywords": [
+        "fader fpv",
+        "secretfader",
+        "nicholas young",
+        "fictive flame"
+      ],
+      "author": "Fader FPV (Nicholas Young)",
+      "priority": 0
+    },
+    {
       "fullPath": "presets/2025.12/osd/JazzMutant_HDZero_osd.txt",
       "hash": "fe9a089a9f86e1fdf676c73beec4558f8c895f2eb7d317f3e0a4d9989d779d86",
       "title": "JazzMutant HDZero OSD",
@@ -765,7 +784,7 @@
     },
     {
       "fullPath": "presets/2025.12/rates/FaderFPV.txt",
-      "hash": "97ff322896bd206989d01b0b0e130a85d37266ecd165369b6ad5062d8dbdd1a1",
+      "hash": "80de7e3e6791115bff84a3432cc462d682eb61855c90cd85af20434ae568a48d",
       "title": "Fader FPV Rates",
       "firmware_version": [
         "4.5",
