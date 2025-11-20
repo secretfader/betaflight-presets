@@ -625,7 +625,7 @@
   "presets": [
     {
       "fullPath": "presets/2025.12/osd/FaderFPV_DJI.txt",
-      "hash": "0f8547a4d96768211f3601ad4b69f9060e508f316837a4fc0dcc65a0cb737048",
+      "hash": "e6a7ba58576ff0f0fe012153f6b831d2a0fd2c9ee53d604cf063c7c7ee4693da",
       "title": "Fader FPV DJI OSD",
       "firmware_version": [
         "4.5",
