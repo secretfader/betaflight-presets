@@ -1,18 +1,12 @@
-#$ TITLE: Fader FPV Rates
+#$ TITLE: Fader FPV DJI OSD
 #$ FIRMWARE_VERSION: 4.5
 #$ FIRMWARE_VERSION: 2025.12
 #$ CATEGORY: RATES
 #$ STATUS: COMMUNITY
 #$ KEYWORDS: fader fpv, secretfader, nicholas young, fictive flame
 #$ AUTHOR: Fader FPV (Nicholas Young)
-#$ DESCRIPTION: Nicholas Young is a professional FPV pilot, drone builder, and tuner. [https://youtube.com/@secretfader](https://youtube.com/@secretfader).
-#$ DESCRIPTION:
-#$ DESCRIPTION: Information:
-#$ DESCRIPTION: -----------
-#$ DESCRIPTION: Primary settings are a max rate of 490 for cinematic flying, but additional faster max rates, with similar curves can be added with options.
-#$ DESCRIPTION: -----------
-#$ WARNING: Before applying this preset, REMEMBER to select your rateprofile to overwrite.
-#$ DISCUSSION: https://github.com/betaflight/firmware-presets/pull/525
+#$ PARSER: MARKED
+#$ DESCRIPTION: This is the OSD layout for the Fictive Air series of FPV drones, developed by professional FPV pilot, drone builder, and tuner, [Nicholas Young](https://secretfader.com).
 
 #$ INCLUDE: presets/2025.12/osd/defaults.txt
 
