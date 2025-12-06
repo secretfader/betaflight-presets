@@ -625,7 +625,7 @@
   "presets": [
     {
       "fullPath": "presets/2025.12/osd/FaderFPV_DJI.txt",
-      "hash": "2640b9072e0abb6ac863972dfd73ac078f8b61eaa430ee3d003fa36ac5bb9d6c",
+      "hash": "70e7f9fcda229496c68e8a0361a7ab5cff2f2eb2370d94d71b214d7d3e6e14c8",
       "title": "Nicholas Young DJI OSD",
       "firmware_version": [
         "4.5",
@@ -784,7 +784,7 @@
     },
     {
       "fullPath": "presets/2025.12/rates/FaderFPV.txt",
-      "hash": "ab2b112f03d2335f8a2fbe5a3b966869fa431ed16b5b62e1edf3fe445111927d",
+      "hash": "595799dbfa34a2051602533e6c4e9acd608df7ea237383e2db09264629c94b5c",
       "title": "Nicholas Young Rates",
       "firmware_version": [
         "2025.12"
