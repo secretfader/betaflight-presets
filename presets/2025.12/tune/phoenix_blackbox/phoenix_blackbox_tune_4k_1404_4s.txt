@@ -1,0 +1,117 @@
+#$ TITLE: Phoenix Blackbox Tune — 4K PID — 1404/4680KV 4S 2.5" 4-blade
+#$ FIRMWARE_VERSION: 2025.12.2
+#$ CATEGORY: TUNE
+#$ STATUS: EXPERIMENTAL
+#$ KEYWORDS: 2.5 inch, 1404, 4680KV, 4S, 4-blade, micro, toothpick, Phoenix
+#$ AUTHOR: Claude Blackbox Analyzer
+#$ DESCRIPTION: Data-driven tune for Phoenix (Flywoo F722 Pro V2).
+#$ DESCRIPTION: Based on analysis of hover + dynamic freestyle blackbox logs.
+#$ DESCRIPTION:
+#$ DESCRIPTION: Quad: 2.5" frame, 1404 Plus 4680KV, HQ DT 63mm 4-blade, 4S, 240g AUW
+#$ DESCRIPTION: Gyro: ICM @ 8kHz | PID: 4kHz (upgraded from 2kHz) | DSHOT300 bidir
+#$ DESCRIPTION: Est. T:W ratio: 6.3:1
+#$ DESCRIPTION:
+#$ DESCRIPTION: Key changes:
+#$ DESCRIPTION: - PID loop 2K→4K for better RPM filter resolution and lower D latency
+#$ DESCRIPTION: - P reduced by ~5 to address 55% overshoot on roll/pitch
+#$ DESCRIPTION: - dyn_notch_max raised 400→532 to cover motor fundamental range (463Hz peak)
+#$ DESCRIPTION: - RPM filter weights rebalanced for 4-blade harmonic profile
+#$ DESCRIPTION: - Dynamic idle bumped 30→35 for low-throttle authority
+#$ DESCRIPTION:
+#$ DESCRIPTION: RECOMMENDED: Fly a hover test first to verify motor temps and noise floor.
+#$ DESCRIPTION: Then fly light freestyle to validate feel before pushing harder.
+#$ FORCE_OPTIONS_REVIEW: TRUE
+
+#$ OPTION_GROUP BEGIN: PID Tuning (from step response analysis)
+
+# PID gains — reduced P by ~5 to address 55% overshoot observed in dynamic log
+# D stays near default — noise headroom exists but overshoot can be addressed with P alone first
+# I unchanged — hover I-term behavior was healthy
+
+set p_roll = 41
+set i_roll = 80
+set d_roll = 25
+set f_roll = 120
+set p_pitch = 43
+set i_pitch = 84
+set d_pitch = 28
+set f_pitch = 125
+set p_yaw = 41
+set i_yaw = 90
+set d_yaw = 0
+set f_yaw = 120
+
+#$ OPTION_GROUP END
+
+#$ OPTION_GROUP BEGIN: Filter Tuning (from hover noise analysis)
+
+# ── Gyro Filters ──
+
+# Gyro LPF1: DISABLED — noise floor is clean at 4.3 deg/s RMS with RPM + dyn notch
+set gyro_lpf1_static_hz = 0
+set gyro_lpf1_dyn_min_hz = 0
+
+# Dynamic notch: raised max to cover motor fundamental range up to 463Hz
+# Q lowered from 400→350 for wider notch coverage on 4-blade noise profile
+set dyn_notch_count = 2
+set dyn_notch_q = 350
+set dyn_notch_max_hz = 532
+
+# RPM filter: rebalanced weights for 4-blade harmonic distribution
+# 1st harmonic (motor fundamental): dominant — full weight
+# 2nd harmonic (2x motor freq): significant on 4-blade — raised from 50→80
+# 3rd harmonic: less critical on 4-blade — lowered from 90→50
+# Q reduced 700→600 for slightly wider notches
+set rpm_filter_weights = 100,80,50
+set rpm_filter_q = 600
+
+# ── D-term Filters ──
+
+# D LPF1: DISABLED — D noise manageable at 11.2 RMS with LPF2 alone
+set dterm_lpf1_dyn_min_hz = 0
+set dterm_lpf1_static_hz = 0
+
+# D LPF2: PT3 at 127Hz — noise analysis shows this is appropriate
+# D-term peaks at 51-85Hz are well above cutoff interaction zone
+set dterm_lpf2_type = PT3
+set dterm_lpf2_static_hz = 127
+set simplified_dterm_filter_multiplier = 85
+
+#$ OPTION_GROUP END
+
+#$ OPTION_GROUP BEGIN: Feedforward & Response Shaping
+
+# Feedforward: smooth_factor 60 and boost 18 producing healthy 32% FF ratio
+# No change needed — response initiation and tracking look balanced
+set feedforward_smooth_factor = 60
+set feedforward_boost = 18
+
+# TPA: current PD-mode TPA with low breakpoint is appropriate for this build
+# Max motor output 1379/2047 leaves 668 headroom — not PID-limited at top end
+set tpa_mode = PD
+set tpa_rate = 50
+set tpa_breakpoint = 1250
+set tpa_low_breakpoint = 1100
+set tpa_low_always = ON
+
+#$ OPTION_GROUP END
+
+#$ OPTION_GROUP BEGIN: System Settings
+
+# PID loop rate: 2K → 4K
+# F722 handles 4kHz easily. Motor fundamentals at 286-463Hz get
+# much better RPM filter resolution at 4K PID vs 2K.
+# Also reduces D-term latency which helps with the overshoot issue.
+# Staying on DSHOT300 bidir — fits comfortably in 250µs loop period.
+set pid_process_denom = 2
+
+# Dynamic idle: bumped 30→35
+# Min hover RPM was ~3000 mech (low). Small increase improves
+# prop authority at low throttle for better propwash recovery.
+set dyn_idle_min_rpm = 35
+
+# Vbat sag compensation stays at 100% — dynamic log showed
+# min cell voltage of 3.17V, sag comp helps maintain consistent feel
+set vbat_sag_compensation = 100
+
+#$ OPTION_GROUP END
